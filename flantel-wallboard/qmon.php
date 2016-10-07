@@ -242,7 +242,7 @@ function getAgentLoggedIn( $blockname, $blocks ) {
        $agent[$block[$r][2]]['extension'] = $block[$r][5];
        $agent[$block[$r][2]]['onpause'] = $block[$r][6];
        $agent[$block[$r][2]]['srv'] = $block[$r][7];
-       $agent[$block[$r][2]]['lastcall'] = $block[$r][8];
+       $agent[$block[$r][2]]['lastcall'] = $block[$r][11]; //in quemetrics 16. the position inside the array is changed to 11
        $agent[$block[$r][2]]['onqueue'] = $block[$r][9];
        $agent[$block[$r][2]]['caller'] = 'none';
        $agent[$block[$r][2]]['entered'] = null;
@@ -289,9 +289,8 @@ function getCurrentCalls( $blockname, $blocks) {
 
         // get the last call time for the agent, and convert to epoch time
         if ((isset($agent[$r]['lastcall'])) && (strstr($agent[$r]['lastcall'],':'))) {
-          //list($h, $m, $s) = explode(':', $agent[$r]['lastcall']);  // THIS LINE CONTAINS AN ERROR CAUSING THE PAGE TO DISPLAY WRONG INFORMATION
-	  list($h, $m, $s) = explode(':', $agent[$r]['lastcall'], 3); //Corrected line works on Queuemetrics 16	
-          $lastcalltime = mktime($h,$m,$s);
+          list($h, $m, $s) = explode(':', $agent[$r]['lastcall']);
+	  $lastcalltime = mktime($h,$m,$s);
         }
 
         if ($agent[$r]['duration'] != '') {
